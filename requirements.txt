@@ -1,5 +1,7 @@
 flask==1.1.2
-ddtrace==0.46.0
 python-dotenv==0.15.0
-wtforms==2.3.3
 uwsgi==2.0.19.1
+uuid
+jwt
+flask-sqlalchemy
+flask-cors
