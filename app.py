@@ -15,7 +15,6 @@ class RoomModel(db.Model):
     patient    = db.Column(db.String(50))
     created_on = db.Column(db.DateTime, index=False, unique=False, nullable=True)
 
-
 port = 8888
 server_addr = ('192.168.1.39', port)
 device_addr = {
@@ -52,6 +51,7 @@ def create_app():
 
     socket = configUDP()
     @app.route('/api/room_signal/<int:room_no>', methods=['GET'])
+    @cross_origin
     def get_signal_room(room_no):
         if room_no == 1:
             return getSignal(socket, device_addr['room1'])
@@ -63,6 +63,7 @@ def create_app():
             return getSignal(socket, device_addr['box'])
     
     @app.route('/api/name', methods=['GET', 'POST'])
+    @cross_origin
     def update_name():
         if request.method == 'POST':
             data = request.get_json()
