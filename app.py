@@ -55,6 +55,9 @@ def create_app():
     @app.route('/')
     def inbex():
         return app.send_static_file('index.html')
+    @app.route('/preferences')
+    def preferences():
+        return app.send_static_file('index.html')
 
     @app.route('/api/room_signal/<int:room_no>', methods=['GET'])
     def get_signal_room(room_no):

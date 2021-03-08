@@ -27,10 +27,10 @@ function App() {
     <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/dashboard">
+            <Route exact path="/">
               <Dashboard />
             </Route>
-            <Route path="/preferences">
+            <Route exact path="/preferences">
               <Preferences />
             </Route>
           </Switch>
