@@ -1,0 +1,63 @@
+.Dashboard {
+    margin-top: 40px;
+}
+
+.header-title {
+    color: gold;
+    font-size: 35px;
+    font-weight: bolder;
+}
+
+.entire-table {
+    margin-top: 30px;
+}
+
+.left-col {
+    padding-top: 30px;
+}
+
+.name-table {
+    margin-left: 25%;
+}
+
+.name-table Table {
+    width: 50%;
+    color:white;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: bolder;
+    text-align: center;
+}
+
+
+.signal-table {
+    padding-top: 50px;
+    padding-left: auto;
+}
+
+.signal-table Table {
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    width: 100%;
+}
+
+.signal-table Table thead tr {
+    background: black;
+}
+
+.right-col {
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.tablemock-data th {
+    background-color: black;
+}
+
+.tablemock-data {
+    text-align: center;
+    color: white;
+    width: 100%;
+}

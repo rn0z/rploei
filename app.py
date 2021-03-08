@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 from datetime import datetime
 
-app = Flask(__name__, instance_relative_config=False)
+app = Flask(__name__, instance_relative_config=False, static_folder='./client/build', static_url_path='/')
 app.config.from_object('config.Config')
 
 db = SQLAlchemy(app)
@@ -32,14 +32,18 @@ def configUDP():
     return s
 
 
-def getSignal(s, ip_addr):
+def getSignal(ip_addr):
+    s = configUDP()
     s.sendto("getData".encode('utf-8'), (ip_addr, port))
     data, address = s.recvfrom(4096)
     data = data.decode('utf-8').split(',')
+    s.close()
+    #s.shutdown(SOCK_DGRAM)
     if len(data) == 1:
         return jsonify(
             uv = data[0]
         )
+    
     return jsonify(
         temp  = data[0],
         hum   = data[1],
@@ -48,22 +52,22 @@ def getSignal(s, ip_addr):
     )
 
 def create_app():
+    @app.route('/')
+    def inbex():
+        return app.send_static_file('index.html')
 
-    socket = configUDP()
     @app.route('/api/room_signal/<int:room_no>', methods=['GET'])
-    @cross_origin
     def get_signal_room(room_no):
         if room_no == 1:
-            return getSignal(socket, device_addr['room1'])
+            return getSignal(device_addr['room1'])
         elif room_no == 2:
-            return getSignal(socket, device_addr['room2'])
+            return getSignal(device_addr['room2'])
         elif room_no == 3:
-            return getSignal(socket, device_addr['room3'])
+            return getSignal(device_addr['room3'])
         elif room_no == 0:
-            return getSignal(socket, device_addr['box'])
+            return getSignal(device_addr['box'])
     
     @app.route('/api/name', methods=['GET', 'POST'])
-    @cross_origin
     def update_name():
         if request.method == 'POST':
             data = request.get_json()
@@ -75,7 +79,6 @@ def create_app():
 
         #obj = session.query(ObjectRes).order_by(ObjectRes.id.desc()).first()
         room_ = RoomModel.query.order_by(RoomModel.id.desc()).first()
-        print(room_)
 
         return jsonify(docter=room_.docter, patient=room_.patient)
     
