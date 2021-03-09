@@ -1,11 +1,12 @@
 .Dashboard {
-    margin-top: 40px;
+    margin-top: 2%;
 }
 
 .header-title {
     color: gold;
-    font-size: 35px;
-    font-weight: bolder;
+    font-size: 45px;
+    letter-spacing: 5px;
+    font-weight: bold;
 }
 
 .entire-table {
@@ -17,11 +18,10 @@
 }
 
 .name-table {
-    margin-left: 25%;
 }
 
 .name-table Table {
-    width: 50%;
+    width: 100%;
     color:white;
     font-size: 25px;
     font-style: normal;
@@ -53,11 +53,30 @@
 }
 
 .tablemock-data th {
+    font-size: 25px;
     background-color: black;
 }
 
 .tablemock-data {
+    margin-top: 5%;
+    font-size: larger;
     text-align: center;
     color: white;
     width: 100%;
+    font-size: 25px;
+}
+
+.uv-table {
+    margin-top: 2%;
+    font-size: x-large;
+    color: aliceblue;
+    font-weight: bolder;
+}
+
+.logo {
+    color: gold;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: 45px;
+    margin-bottom: 2%;
 }

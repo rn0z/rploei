@@ -16,7 +16,7 @@ class RoomModel(db.Model):
     created_on = db.Column(db.DateTime, index=False, unique=False, nullable=True)
 
 port = 8888
-server_addr = ('192.168.1.39', port)
+server_addr = ('0.0.0.0', port)
 device_addr = {
     'box':   '192.168.1.231',
     'room1': '192.168.1.160',
@@ -55,6 +55,7 @@ def create_app():
     @app.route('/')
     def inbex():
         return app.send_static_file('index.html')
+
     @app.route('/preferences')
     def preferences():
         return app.send_static_file('index.html')
