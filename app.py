@@ -38,7 +38,7 @@ def getSignal(ip_addr):
     data, address = s.recvfrom(4096)
     data = data.decode('utf-8').split(',')
     s.close()
-    #s.shutdown(SOCK_DGRAM)
+    print(data)
     if len(data) == 1:
         return jsonify(
             uv = data[0]

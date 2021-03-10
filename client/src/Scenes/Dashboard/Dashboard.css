@@ -14,10 +14,7 @@
 }
 
 .left-col {
-    padding-top: 30px;
-}
-
-.name-table {
+    padding-top: 2%;
 }
 
 .name-table Table {
@@ -38,7 +35,7 @@
 .signal-table Table {
     color: white;
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
     width: 100%;
 }
 
@@ -46,19 +43,19 @@
     background: black;
 }
 
-.right-col {
+.right-col .device-status Table {
     align-items: center;
     text-align: center;
     color: white;
 }
 
-.tablemock-data th {
+.device-status th {
     font-size: 25px;
     background-color: black;
 }
 
-.tablemock-data {
-    margin-top: 5%;
+.device-status {
+    padding-top: 10%;
     font-size: larger;
     text-align: center;
     color: white;
