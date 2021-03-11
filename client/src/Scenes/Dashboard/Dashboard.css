@@ -71,9 +71,17 @@
 }
 
 .logo {
+    text-align: center;
     color: gold;
     font-family: sans-serif;
     font-weight: bolder;
     font-size: 45px;
     margin-bottom: 2%;
+}
+
+.datenow {
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: larger;
+    color: white;
 }

@@ -13,7 +13,7 @@
 const char* ssid = "isolate_room";
 const char* password = "00000000";
 
-const char* ip = "192.168.1.39";
+const char* ip = "192.168.1.34";
 const unsigned int port = 8888;
 
 WiFiUDP Udp;

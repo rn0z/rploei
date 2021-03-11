@@ -41,7 +41,8 @@ export default class Dashboard extends React.Component {
       press: 0
     },
     uv: false,
-    hepa: 0
+    hepa: 0,
+    now: ''
   }
   
   componentDidMount() {
@@ -59,7 +60,12 @@ export default class Dashboard extends React.Component {
       hepa: (Math.floor(Math.random() * 3) + 2) / 10
     })
 
-    await axios.get('http://localhost:5000/api/room_signal/0')
+    let datenow = new Date()
+    this.setState({
+      now: `${datenow.getDate().toString()}/${datenow.getMonth().toString()}/${datenow.getFullYear()}`
+    })
+
+    await axios.get('http://192.168.1.34/api/room_signal/0')
     .then(res => res.data)
     .then(res => {
       if (res.uv) {
@@ -68,7 +74,7 @@ export default class Dashboard extends React.Component {
         })
       }
     })
-    await axios.get('http://localhost:5000/api/room_signal/1')
+    await axios.get('http://192.168.1.34/api/room_signal/1')
     .then(res => res.data)
     .then(res => {
       if (res) {
@@ -77,7 +83,7 @@ export default class Dashboard extends React.Component {
         })
       }
     })
-    await axios.get('http://localhost:5000/api/room_signal/2')
+    await axios.get('http://192.168.1.34/api/room_signal/2')
     .then(res => res.data)
     .then(res => {
       if (res) {
@@ -86,7 +92,7 @@ export default class Dashboard extends React.Component {
         })
       }
     })
-    await axios.get('http://localhost:5000/api/room_signal/3')
+    await axios.get('http://192.168.1.34/api/room_signal/3')
     .then(res => res.data)
     .then(res => {
       if (res) {
@@ -95,7 +101,7 @@ export default class Dashboard extends React.Component {
         })
       }
     })
-    await axios.get('http://localhost:5000/api/name')
+    await axios.get('http://192.168.1.34/api/name')
     .then(res => res.data )
     .then(res => {
       if (res) {
@@ -151,6 +157,9 @@ export default class Dashboard extends React.Component {
           <div className="header-title">
               โรงพยาบาลจิตเวชเลยราชนครินทร์
           </div>
+          <div className='datenow pl-5 pt-4'>
+            {this.state.now}
+          </div>
           </Row>
           <Container fluid={true} className="entire-table">
             <Row xs="2" className="border">
@@ -164,7 +173,7 @@ export default class Dashboard extends React.Component {
                             <th>{this.state.name.docter}</th>
                           </tr>
                           <tr>
-                            <th>Paitent</th>
+                            <th>Name</th>
                             <th>{this.state.name.patient}</th>
                           </tr>
                         </thead>
@@ -245,6 +254,7 @@ export default class Dashboard extends React.Component {
                         </tr>
                         <tr>
                           <td>Air</td>
+                          <td style={{background: 'green'}}>On</td>
                         </tr>
                         <tr>
                           <td>UV</td>
