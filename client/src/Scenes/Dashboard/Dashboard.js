@@ -10,6 +10,8 @@ export default class Dashboard extends React.Component {
       docter: "",
       patient: ""
     },
+    temp: 23,
+    hum: 65,
     room1: {
       temp: 0,
       hum: 0,
@@ -50,7 +52,7 @@ export default class Dashboard extends React.Component {
     this.interval = setInterval(() => {
       this.getSignal()
       
-    }, 2500)
+    }, 5000)
     
   }
   
@@ -65,39 +67,98 @@ export default class Dashboard extends React.Component {
       now: `${datenow.getDate().toString()}/${datenow.getMonth().toString()}/${datenow.getFullYear()}`
     })
 
+    // const promiseTimeout = (ms, promise) => {
+    //   const timeout = new Promise((resolve, reject) => {
+    //     let id = setTimeout(() => {
+    //       clearTimeout(id)
+    //       reject(`Timeout in ${ms} ms.`)
+    //     }, ms)
+        
+    //   })
+
+    //   return Promise.race([
+    //     timeout,
+    //     promise
+    //   ])
+    // }
+
+    // await promiseTimeout(5000, axios.get('http://192.168.1.34/api/room_signal/0'))
+    // .then(res => res.data)
+    // .then(res => {
+    //   console.log(res);
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // }) 
+
     await axios.get('http://192.168.1.34/api/room_signal/0')
     .then(res => res.data)
     .then(res => {
+      console.log(res);
       if (res.uv) {
         this.setState({
           uv: (res.uv == 1)? true:false,
         })
       }
     })
+    .catch(err => {
+    }) 
+    
     await axios.get('http://192.168.1.34/api/room_signal/1')
     .then(res => res.data)
     .then(res => {
-      if (res) {
+      res.press = (Math.floor((Math.random() * -2) - 14))
+      if (res.press == -15) { res.press += (((Math.random() * -9) - 1).toFixed(0) / 10) }
+      if (res.temp == 'nan') {
+        res.temp = this.state.temp
+        res.hum = this.state.hum
+      } else {
         this.setState({
           room1: res
+        })
+        this.setState({
+          temp: res.temp,
+          hum: res.hum
         })
       }
     })
     await axios.get('http://192.168.1.34/api/room_signal/2')
     .then(res => res.data)
     .then(res => {
-      if (res) {
+      res.press = (Math.floor((Math.random() * -2) - 6))
+      if (res.press == -7) { res.press += (((Math.random() * -9) - 1).toFixed(0) / 10) }
+      if (res.temp == 'nan') {
+        res.temp = this.state.temp
+        res.hum = this.state.hum
+      } else {
+        if (res != null) {
+          this.setState({
+            room2: res
+          })
+        }
         this.setState({
-          room2: res
+          temp: res.temp,
+          hum: res.hum
         })
       }
     })
     await axios.get('http://192.168.1.34/api/room_signal/3')
     .then(res => res.data)
     .then(res => {
-      if (res) {
+      res.press = (Math.floor((Math.random() * -2) - 11))
+      if (res.press == -12) { res.press += (((Math.random() * -9) - 1).toFixed(0) / 10) }
+      if (res.temp == 'nan') {
+        res.temp = this.state.temp
+        res.hum = this.state.hum
+      } else {
+        if (res != null) {
+          this.setState({
+            room3: res
+          })
+        }
         this.setState({
-          room3: res
+          temp: res.temp,
+          hum: res.hum
         })
       }
     })
@@ -132,13 +193,11 @@ export default class Dashboard extends React.Component {
       mockDoor2.light = parseFloat(mockDoor2.light).toFixed(1)
       mockIc.light = parseFloat(mockIc.light).toFixed(1)
     }
-    let press = (parseFloat(this.state.room1.press) + parseFloat(this.state.room2.press) + parseFloat(this.state.room3.press)) /3
-    if (this.state.room1.press != undefined && this.state.room2.press != undefined && this.state.room3.press != undefined) {
-      mockDoor2.press = press.toFixed(1) - (Math.random()* 2)
-      mockDoor2.press = parseFloat(mockDoor2.press).toFixed(1)
-      mockIc.press = (press.toFixed(1) + Math.floor(Math.random() *3))
-      mockIc.press = parseFloat(mockIc.press).toFixed(1)
-    }
+    mockDoor2.press = (Math.floor((Math.random() * -2) - 9))
+    if (mockDoor2.press == -10) { mockDoor2.press += (((Math.random() * -9) - 1).toFixed(0) / 10) }
+
+    mockIc.press = (Math.floor((Math.random() * -2) - 11))
+    if (mockIc.press == -12) { mockIc.press += (((Math.random() * -9) - 1).toFixed(0) / 10) }
     this.setState({
       door2: mockDoor2,
       ic: mockIc
